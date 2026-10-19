@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bearing Marketing Plans</title>
+<meta name="description" content="A marketing plan built around your business. Answer a short questionnaire and get a tailored plan: channels, budget split and a week-by-week calendar. From $79 AUD.">
+<meta property="og:title" content="Bearing Marketing Plans">
+<meta property="og:description" content="A tailored marketing plan for your small business, from $79 AUD.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14.5' fill='none' stroke='%2314231E' stroke-width='2'/%3E%3Cpath d='M16 4.5 L20 16 L16 27.5 L12 16 Z' fill='%231E5A47'/%3E%3Cpath d='M16 4.5 L20 16 L12 16 Z' fill='%23F0AE2E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: survey-map identity — compass mark, field-sheet cards, one amber "marker" accent; landing sections + a full-screen plan builder */
+:root{
+  --ground:#EEF2EE; --surface:#FFFFFF; --sunk:#E3E9E4; --ink:#14231E; --muted:#56675F; --line:#CCD6CF;
+  --accent:#1E5A47; --accent-ink:#FFFFFF; --signal:#F0AE2E; --signal-ink:#2E2200; --danger:#A3322A;
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0E1613; --surface:#15201C; --sunk:#1B2823; --ink:#E4ECE8; --muted:#93A59C; --line:#2A3a34;
+  --accent:#7FC6A9; --accent-ink:#0B1A14; --signal:#F2B647; --signal-ink:#2E2200; --danger:#F08B82; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --ground:#0E1613; --surface:#15201C; --sunk:#1B2823; --ink:#E4ECE8; --muted:#93A59C; --line:#2A3a34;
+  --accent:#7FC6A9; --accent-ink:#0B1A14; --signal:#F2B647; --signal-ink:#2E2200; --danger:#F08B82; color-scheme:dark }
+
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 22px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .15s ease, background .15s}
+.btn-primary{background:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.mark{background:linear-gradient(transparent 58%, var(--signal) 58%, var(--signal) 90%, transparent 90%);color:inherit;padding:0 .08em}
+
+/* Nav */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
+nav.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:21px;letter-spacing:-.01em;background:none;border:0;color:var(--ink);padding:0}
+.logo svg{width:30px;height:30px}
+.navlinks{display:flex;gap:26px;align-items:center;font-size:15px}
+.navlinks a{text-decoration:none;color:var(--muted)}
+.navlinks a:hover{color:var(--ink)}
+@media (max-width:760px){.navlinks a{display:none}}
+
+/* Hero */
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center;padding-block:72px 64px}
+.hero h1{font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-.03em}
+.hero .lede{font-size:19px;color:var(--muted);max-width:52ch;margin-top:22px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.hero .meta{display:flex;gap:22px;flex-wrap:wrap;margin-top:28px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.hero .meta b{color:var(--ink);font-weight:500}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr;gap:40px;padding-block:44px}}
+
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:0 1px 0 var(--line),0 24px 48px -28px rgba(10,30,22,.35);position:relative;min-width:0}
+.sheet .tab{position:absolute;top:-12px;left:22px;background:var(--signal);color:var(--signal-ink);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:4px}
+.sheet h3{font-size:22px;margin-top:6px}
+.sheet .sub{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:4px}
+.sheet .blk{border-top:1px dashed var(--line);margin-top:16px;padding-top:14px}
+.sheet .blk .eyebrow{font-size:11px;margin-bottom:6px}
+.bars{display:grid;gap:8px;margin-top:4px}
+.bar{display:grid;grid-template-columns:118px 1fr 40px;gap:10px;align-items:center;font-size:13px}
+.bar .track{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.bar .fill{height:100%;background:var(--accent);border-radius:99px}
+.bar .pct{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.weeks{display:grid;gap:6px;font-size:14px;margin:0;padding:0;list-style:none}
+.weeks li{display:grid;grid-template-columns:62px 1fr;gap:8px}
+.weeks span{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:2px}
+
+/* Sections */
+section.band{padding-block:84px;border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:12px;max-width:640px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:-.02em}
+.sec-head p{color:var(--muted);font-size:17px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;counter-reset:s}
+.step{display:grid;gap:10px;align-content:start;border-top:2px solid var(--ink);padding-top:18px}
+.step .n{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.step h3{font-size:22px}
+.step p{color:var(--muted)}
+@media (max-width:820px){.steps{grid-template-columns:1fr;gap:28px}}
+
+.inside{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.inside div{background:var(--surface);padding:24px;display:grid;gap:8px;align-content:start}
+.inside h3{font-size:18px;font-family:var(--body);font-weight:600}
+.inside p{color:var(--muted);font-size:15px}
+@media (max-width:860px){.inside{grid-template-columns:1fr 1fr}}
+@media (max-width:540px){.inside{grid-template-columns:1fr}}
+
+.pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+.tier{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:18px;position:relative}
+.tier.featured{border:2px solid var(--accent)}
+.tier .flag{position:absolute;top:-12px;right:22px;background:var(--signal);color:var(--signal-ink);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:4px}
+.tier h3{font-size:24px}
+.tier .price{font-family:var(--display);font-size:44px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tier .price small{font-family:var(--body);font-size:14px;font-weight:400;color:var(--muted);letter-spacing:0}
+.tier ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px;flex:1}
+.tier li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.tier li::before{content:"";width:8px;height:8px;margin-top:8px;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+.tier li.plus{color:var(--muted)}
+.tier .btn{justify-content:center}
+@media (max-width:900px){.pricing{grid-template-columns:1fr}}
+
+.faq{display:grid;gap:0;max-width:760px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line);padding-block:18px}
+.faq summary{font-weight:600;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";font-family:var(--mono);color:var(--muted)}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--muted);margin-top:10px;max-width:65ch}
+
+.cta-band{background:var(--accent);color:var(--accent-ink)}
+.cta-band .wrap{padding-block:64px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cta-band h2{font-size:clamp(28px,4vw,40px);font-weight:800;max-width:20ch}
+.cta-band .btn{background:var(--signal);color:var(--signal-ink)}
+footer .wrap{padding-block:32px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+
+/* Builder */
+#builder .wrap{max-width:820px;padding-block:40px 80px}
+.progress{display:grid;gap:10px;margin-bottom:34px}
+.progress .rail{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.progress .rail i{height:5px;border-radius:99px;background:var(--line)}
+.progress .rail i.on{background:var(--accent)}
+.progress .row{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:12px;color:var(--muted);flex-wrap:wrap}
+.qhead h2{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-.02em}
+.qhead p{color:var(--muted);margin-top:8px}
+.fields{display:grid;gap:22px;margin-top:30px}
+.field{display:grid;gap:8px}
+.field label,.field .lbl{font-weight:600;font-size:15px}
+.field .hint{font-size:13px;color:var(--muted);margin-top:-4px}
+.field .opt{font-weight:400;color:var(--muted);font-size:13px}
+input[type=text],textarea,select{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:8px;padding:12px 14px}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.field.err input,.field.err textarea,.field.err select{border-color:var(--danger)}
+.field .msg{font-size:13px;color:var(--danger)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.qnav{display:flex;justify-content:space-between;gap:12px;margin-top:36px;flex-wrap:wrap}
+.qnav .left{display:flex;gap:10px;flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;padding:8px 4px;font-size:14px}
+
+.review{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);margin-top:28px;overflow:hidden}
+.review .rrow{display:grid;grid-template-columns:180px 1fr;gap:16px;padding:12px 18px;border-bottom:1px solid var(--line);font-size:15px}
+.review .rrow:last-child{border-bottom:0}
+.review .rrow b{font-weight:500;color:var(--muted);font-size:14px}
+.review .rrow span{min-width:0;overflow-wrap:anywhere}
+@media (max-width:560px){.review .rrow{grid-template-columns:1fr;gap:2px}}
+.tierpick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.tierpick button{text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:14px;color:var(--ink);display:grid;gap:2px}
+.tierpick button[aria-pressed="true"]{border:2px solid var(--accent);padding:13.5px}
+.tierpick b{font-family:var(--display);font-size:18px}
+.tierpick span{font-family:var(--mono);font-size:13px;color:var(--muted)}
+@media (max-width:560px){.tierpick{grid-template-columns:1fr}}
+.notice{background:var(--sunk);border-radius:8px;padding:12px 16px;font-size:14px;color:var(--muted);margin-top:18px}
+
+/* Plan output */
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.plan-head{padding:30px 34px;border-bottom:1px solid var(--line);display:grid;gap:8px;background:linear-gradient(180deg,var(--sunk),var(--surface))}
+.plan-head h2{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.02em}
+.plan-head .row{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.status{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);padding:14px 34px;border-bottom:1px solid var(--line)}
+.pulse{width:10px;height:10px;border-radius:50%;background:var(--signal);animation:p 1.2s ease-in-out infinite}
+@keyframes p{50%{opacity:.25}}
+.plan-body{padding:10px 34px 40px;min-width:0}
+.md{max-width:70ch}
+.md h2{font-size:26px;font-weight:800;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
+.md h2:first-child{border-top:0;margin-top:20px;padding-top:0}
+.md h3{font-size:19px;margin-top:24px}
+.md p,.md ul,.md ol{margin-top:12px}
+.md li{margin-top:6px}
+.md strong{font-weight:600}
+.md .tbl{overflow-x:auto;margin-top:16px}
+.md table{border-collapse:collapse;font-size:14px;min-width:100%}
+.md th,.md td{border-bottom:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+.md th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.md td{font-variant-numeric:tabular-nums}
+.md blockquote{margin:16px 0 0;border-left:3px solid var(--signal);padding:4px 0 4px 16px;color:var(--muted)}
+.plan-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.err-box{border:1.5px solid var(--danger);color:var(--danger);border-radius:8px;padding:14px 16px;margin-top:18px;font-size:15px}
+@media (max-width:560px){.plan-head,.plan-body{padding-left:20px;padding-right:20px}.status{padding-left:20px;padding-right:20px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="wrap">
+    <button class="logo" id="homeBtn" aria-label="Bearing home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 4.5 L20 16 L16 27.5 L12 16 Z" fill="var(--accent)"/><path d="M16 4.5 L20 16 L12 16 Z" fill="var(--signal)"/><circle cx="16" cy="16" r="2" fill="var(--surface)"/></svg>
+      Bearing
+    </button>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#inside">What's inside</a>
+      <a href="#pricing">Pricing</a>
+      <button class="btn btn-primary" data-start="growth" style="padding:10px 18px">Start your plan</button>
+    </div>
+  </div>
+</nav>
+
+<main id="landing">
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Marketing plans for small business</p>
+        <h1 style="margin-top:16px">A marketing plan built around <span class="mark">your</span> business.</h1>
+        <p class="lede">Answer five short sections about what you sell, who buys it and what you can spend. Bearing turns your answers into a specific plan: which channels, how to split the budget, and what to do each week.</p>
+        <div class="ctas">
+          <button class="btn btn-primary" data-start="growth">Start the questionnaire →</button>
+          <a class="btn btn-ghost" href="#pricing">See plans</a>
+        </div>
+        <div class="meta"><span><b>~8 min</b> to answer</span><span><b>From $79</b> AUD</span><span><b>Plan in minutes</b>, not weeks</span></div>
+      </div>
+      <aside class="sheet" aria-label="Sample plan excerpt">
+        <span class="tab">Sample plan excerpt</span>
+        <h3>Hollow Oak Bakery</h3>
+        <p class="sub">Growth plan · Brunswick VIC · $1,500/month</p>
+        <div class="blk">
+          <p class="eyebrow">Positioning</p>
+          <p>The neighbourhood sourdough, out of the oven before 6am. Lead with the early-morning ritual, not the price.</p>
+        </div>
+        <div class="blk">
+          <p class="eyebrow">Monthly budget split</p>
+          <div class="bars">
+            <div class="bar"><span>Instagram + Reels</span><div class="track"><div class="fill" style="width:40%"></div></div><span class="pct">40%</span></div>
+            <div class="bar"><span>Google Business</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="pct">25%</span></div>
+            <div class="bar"><span>Café partners</span><div class="track"><div class="fill" style="width:20%"></div></div><span class="pct">20%</span></div>
+            <div class="bar"><span>Email club</span><div class="track"><div class="fill" style="width:15%"></div></div><span class="pct">15%</span></div>
+          </div>
+        </div>
+        <div class="blk">
+          <p class="eyebrow">First four weeks</p>
+          <ul class="weeks">
+            <li><span>Wk 1</span>Claim and photograph the Google Business profile</li>
+            <li><span>Wk 2</span>Launch "first loaf free" pre-order list</li>
+            <li><span>Wk 3</span>Pitch wholesale to three Sydney Rd cafés</li>
+            <li><span>Wk 4</span>Film four 20-second bake-day Reels</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <section class="band" id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Three steps from questions to a plan you can act on</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><span class="n">Step 1</span><h3>Tell us about the business</h3><p>Five sections covering your offer, customers, current marketing, budget and goals. Your answers save as you go.</p></div>
+        <div class="step"><span class="n">Step 2</span><h3>We build the strategy</h3><p>The AI strategist works from your answers only. Every channel, number and task has to fit your budget and the hours you have.</p></div>
+        <div class="step"><span class="n">Step 3</span><h3>Get your plan</h3><p>Read it on screen, copy it into your own docs or download it. Change an answer and regenerate whenever things shift.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="inside">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">What's inside</p>
+        <h2>Strategy you'd normally pay an agency for</h2>
+        <p>Every plan is written for one business. Here's what you can expect to find.</p>
+      </div>
+      <div class="inside">
+        <div><h3>Positioning</h3><p>One clear line on why customers should choose you, and the message to repeat everywhere.</p></div>
+        <div><h3>Customer profile</h3><p>Who buys, what they're weighing up and what stops them buying.</p></div>
+        <div><h3>Channel mix</h3><p>The two or three channels worth your time, and the ones to ignore for now.</p></div>
+        <div><h3>Budget split</h3><p>Your monthly spend allocated across channels, in dollars, with the reasoning.</p></div>
+        <div><h3>Week-by-week calendar</h3><p>Concrete tasks sized to the hours you said you have.</p></div>
+        <div><h3>KPIs and targets</h3><p>The handful of numbers to track, with realistic targets for your timeframe.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Pricing · AUD, GST inclusive</p>
+        <h2>One-off price. No retainer.</h2>
+        <p>Pay once per plan. Choose the depth that matches where your business is.</p>
+      </div>
+      <div class="pricing" id="pricingGrid"></div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">Questions</p><h2>Before you start</h2></div>
+      <div class="faq">
+        <details><summary>How is this different from a template?</summary><p>A template gives everyone the same headings to fill in. Bearing writes the content: specific channels, a dollar split of your actual budget, and weekly tasks that fit the time you have.</p></details>
+        <details><summary>How long does the questionnaire take?</summary><p>Most people finish in about eight minutes. Only a few questions are required, but the more detail you give, the more specific the plan.</p></details>
+        <details><summary>What if my budget is very small?</summary><p>Choose "Under $500". The plan will lean on free and low-cost channels such as Google Business, partnerships and email, and tell you what to skip.</p></details>
+        <details><summary>Can I change my answers later?</summary><p>Your answers stay in this browser until you pay, so you can go back and adjust them. After purchase you can generate up to two new versions of your plan at no extra cost.</p></details>
+        <details><summary>How do I pay?</summary><p>Checkout is handled securely by Stripe. You can pay by card, Apple Pay or Google Pay. Your plan starts writing as soon as the payment goes through, and you'll get a receipt by email.</p></details>
+        <details><summary>Is the plan written by a person?</summary><p>No. It is written by an AI strategist from your answers. Treat it as a strong first draft and check it against what you know about your market.</p></details>
+        <details><summary>Where can I find my plan later?</summary><p>Bookmark the page your plan appears on. That link always shows your latest version.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <div class="wrap">
+      <h2>Know exactly what to do with your marketing next week.</h2>
+      <button class="btn" data-start="growth">Start your plan →</button>
+    </div>
+  </div>
+  <footer><div class="wrap"><span>© 2026 Bearing Marketing Plans</span><span>Made in Melbourne</span></div></footer>
+</main>
+
+<main id="builder" hidden>
+  <div class="wrap" id="builderInner"></div>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script>
+(function(){
+const TIERS = {
+  starter:{name:"Essentials",price:79,blurb:"For getting started on the right channels.",
+    features:["Positioning and core message","Ideal customer profile","Top 3 channels and why","30-day action list","KPIs to track"],
+    sections:["Executive summary","Positioning and core message","Ideal customer profile","Recommended channels (top 3, with what to skip)","30-day action list","KPIs and targets (as a table)"]},
+  growth:{name:"Growth",price:149,blurb:"The full plan most small businesses need.",featured:true,
+    features:["Everything in Essentials","Monthly budget split in dollars","90-day week-by-week calendar","Content pillars and 10 post ideas","Messaging for each channel"],
+    sections:["Executive summary","Positioning and core message","Ideal customer profile","Channel strategy (what to use, what to skip)","Monthly budget allocation (as a table, in AUD)","Messaging by channel","Content pillars with 10 specific post ideas","90-day calendar (week by week, as a table)","KPIs and targets (as a table)"]},
+  pro:{name:"Full Strategy",price:299,blurb:"For established businesses ready to scale.",
+    features:["Everything in Growth","Competitor angles to exploit","Funnel and conversion fixes","Email nurture sequence outline","12-month roadmap by quarter"],
+    sections:["Executive summary","Positioning and core message","Competitor angles and gaps to exploit","Ideal customer profile and buying objections","Channel strategy (what to use, what to skip)","Monthly budget allocation (as a table, in AUD)","Funnel and conversion improvements","Messaging by channel","Content pillars with 10 specific post ideas","Email nurture sequence (5 emails, subject and purpose)","90-day calendar (week by week, as a table)","12-month roadmap by quarter","KPIs and targets (as a table)","Risks, and what to cut first if budget gets tight"]}
+};
+const CH = ["Instagram","Facebook","TikTok","LinkedIn","Google search","YouTube","Email","Local community","Industry events","Word of mouth"];
+const STEPS = [
+  {title:"Your business",intro:"The basics, so the plan fits your market.",fields:[
+    {id:"bizName",label:"Business name",type:"text",req:true,ph:"e.g. Hollow Oak Bakery"},
+    {id:"industry",label:"Industry",type:"select",req:true,opts:["Retail","Hospitality & food","Professional services","Trades & home services","Health & wellness","E-commerce","B2B / software","Creative & events","Other"]},
+    {id:"location",label:"Where you trade",type:"text",req:true,ph:"Suburb and state, or 'online, Australia-wide'"},
+    {id:"stage",label:"How long you've been trading",type:"select",req:true,opts:["Not launched yet","Under 1 year","1–3 years","3+ years"]},
+    {id:"website",label:"Website or main social link",type:"text",ph:"Optional"}]},
+  {title:"What you sell",intro:"What customers pay for and why they choose you.",fields:[
+    {id:"offer",label:"Your main products or services",type:"textarea",req:true,ph:"e.g. Sourdough loaves, pastries and wholesale bread for cafés"},
+    {id:"price",label:"Typical sale value",type:"text",req:true,ph:"e.g. $18 average order, or $2,500/month retainer"},
+    {id:"usp",label:"Why customers choose you over others",type:"textarea",req:true,ph:"What do happy customers say about you?"},
+    {id:"competitors",label:"Main competitors",type:"text",ph:"Optional, names or types of business"}]},
+  {title:"Your customers",intro:"Who buys, and where you can reach them.",fields:[
+    {id:"custType",label:"Who you sell to",type:"select",req:true,opts:["Consumers (B2C)","Businesses (B2B)","Both"]},
+    {id:"customer",label:"Describe your best customer",type:"textarea",req:true,ph:"Age, situation, what they care about, why they buy"},
+    {id:"hangouts",label:"Where they spend their time",type:"chips",opts:CH,hint:"Pick any that apply"},
+    {id:"objections",label:"What stops people buying",type:"textarea",ph:"Optional, e.g. price, not knowing you exist, trust"}]},
+  {title:"Where you are now",intro:"Your current marketing, budget and time.",fields:[
+    {id:"current",label:"What you're doing now",type:"chips",opts:[...CH,"Paid ads","Website / SEO","Nothing yet"],hint:"Pick any that apply"},
+    {id:"working",label:"What's working, and what isn't",type:"textarea",ph:"Optional"},
+    {id:"budget",label:"Monthly marketing budget",type:"select",req:true,opts:["Under $500","$500–$1,500","$1,500–$5,000","$5,000–$15,000","$15,000+"]},
+    {id:"hours",label:"Time you can give marketing each week",type:"select",req:true,opts:["Under 2 hours","2–5 hours","5–10 hours","10+ hours","I have a team or agency"]}]},
+  {title:"Your goals",intro:"What success looks like, and how you want to sound.",fields:[
+    {id:"goal",label:"Main goal",type:"select",req:true,opts:["More leads and enquiries","More online sales","Fill bookings and appointments","More repeat customers","Brand awareness","Launch a new product or service"]},
+    {id:"target",label:"A specific target, if you have one",type:"text",ph:"e.g. 30 new clients by March"},
+    {id:"horizon",label:"Timeframe",type:"select",req:true,opts:["90 days","6 months","12 months"]},
+    {id:"tone",label:"Brand voice",type:"select",req:true,opts:["Warm and friendly","Expert and authoritative","Bold and playful","Premium and understated"]},
+    {id:"notes",label:"Anything else the plan should know",type:"textarea",ph:"Optional, e.g. seasonal peaks, a launch date, things you won't do"}]}
+];
+const EXAMPLE = {bizName:"Hollow Oak Bakery",industry:"Hospitality & food",location:"Brunswick VIC",stage:"1–3 years",website:"instagram.com/hollowoakbakery",
+  offer:"Naturally leavened sourdough loaves, laminated pastries, and wholesale bread for local cafés.",price:"$22 average retail order; wholesale accounts around $400/week",
+  usp:"Everything is baked on site before 6am with organic Victorian flour. Customers say it's the best crust in the inner north and they love chatting to the bakers.",
+  competitors:"Two chain bakeries on Sydney Rd, supermarket 'artisan' loaves",custType:"Both",
+  customer:"Locals aged 28–45, renters and young families within 3 km who care about food quality and shop on foot. Plus independent café owners who want a reliable local supplier.",
+  hangouts:["Instagram","Google search","Local community","Word of mouth"],objections:"Price versus supermarket bread; sell-outs by 10am frustrate people.",
+  current:["Instagram","Word of mouth"],working:"Instagram posts of the morning bake get good engagement but we post irregularly. No email list yet.",
+  budget:"$500–$1,500",hours:"2–5 hours",goal:"More repeat customers",target:"200 weekly pre-orders and 3 new café accounts",horizon:"6 months",tone:"Warm and friendly",notes:"Closed Mondays. Christmas and Easter are our biggest weeks."};
+
+const store = {get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let answers = store.get("bearing.answers") || {};
+let tier = store.get("bearing.tier") || "growth";
+let step = 0;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// Prices here are for display. The server (lib/plans.mjs) sets what Stripe charges; keep them in sync.
+// Pricing cards
+$("#pricingGrid").innerHTML = Object.entries(TIERS).map(([k,t]) => `
+  <div class="tier${t.featured?" featured":""}">
+    ${t.featured?'<span class="flag">Most chosen</span>':""}
+    <div><h3>${t.name}</h3><p style="color:var(--muted);margin-top:6px">${t.blurb}</p></div>
+    <div class="price">$${t.price}<small> one-off</small></div>
+    <ul>${t.features.map((f,i)=>`<li class="${i===0&&k!=="starter"?"plus":""}">${f}</li>`).join("")}</ul>
+    <button class="btn ${t.featured?"btn-primary":"btn-ghost"}" data-start="${k}">Choose ${t.name}</button>
+  </div>`).join("");
+
+document.addEventListener("click", e => {
+  const s = e.target.closest("[data-start]");
+  if (s){ tier = s.dataset.start; store.set("bearing.tier",tier); openBuilder(0); }
+});
+$("#homeBtn").onclick = () => { clearTimeout(pollTimer); if (location.search) history.replaceState(null, "", location.pathname); $("#builder").hidden = true; $("#landing").hidden = false; window.scrollTo(0,0); };
+
+function openBuilder(n){ step = n; $("#landing").hidden = true; $("#builder").hidden = false; render(); window.scrollTo(0,0); }
+
+function progress(){
+  const labels = [...STEPS.map(s=>s.title),"Review"];
+  return `<div class="progress"><div class="rail">${labels.map((_,i)=>`<i class="${i<=step?"on":""}"></i>`).join("")}</div>
+    <div class="row"><span>Step ${step+1} of ${labels.length} · ${labels[step]}</span><span>${TIERS[tier].name} plan · $${TIERS[tier].price}</span></div></div>`;
+}
+
+function fieldHTML(f){
+  const v = answers[f.id];
+  const lab = `${esc(f.label)}${f.req?"":' <span class="opt">optional</span>'}`;
+  if (f.type==="chips"){
+    const sel = Array.isArray(v)?v:[];
+    return `<div class="field" data-f="${f.id}"><span class="lbl" id="l_${f.id}">${lab}</span>${f.hint?`<span class="hint">${f.hint}</span>`:""}
+      <div class="chips" role="group" aria-labelledby="l_${f.id}">${f.opts.map(o=>`<button type="button" class="chip" data-chip="${f.id}" data-v="${esc(o)}" aria-pressed="${sel.includes(o)}">${esc(o)}</button>`).join("")}</div></div>`;
+  }
+  let ctrl;
+  if (f.type==="select") ctrl = `<select id="${f.id}"><option value="">Choose…</option>${f.opts.map(o=>`<option${v===o?" selected":""}>${esc(o)}</option>`).join("")}</select>`;
+  else if (f.type==="textarea") ctrl = `<textarea id="${f.id}" placeholder="${esc(f.ph||"")}">${esc(v||"")}</textarea>`;
+  else ctrl = `<input type="text" id="${f.id}" value="${esc(v||"")}" placeholder="${esc(f.ph||"")}">`;
+  return `<div class="field" data-f="${f.id}"><label for="${f.id}">${lab}</label>${ctrl}<span class="msg" hidden></span></div>`;
+}
+
+function render(){
+  const root = $("#builderInner");
+  if (step < STEPS.length){
+    const s = STEPS[step];
+    root.innerHTML = progress() + `<div class="qhead"><h2>${s.title}</h2><p>${s.intro}</p></div>
+      <form id="qform" novalidate><div class="fields">${s.fields.map(fieldHTML).join("")}</div>
+      <div class="qnav"><div class="left">${step>0?'<button type="button" class="btn btn-ghost" id="back">← Back</button>':""}
+      <button type="button" class="linkbtn" id="fillEx">Fill with example answers</button></div>
+      <button type="submit" class="btn btn-primary">Continue →</button></div></form>`;
+    root.querySelectorAll("input,textarea,select").forEach(el => el.addEventListener("input", () => { answers[el.id] = el.value; store.set("bearing.answers",answers); el.closest(".field").classList.remove("err"); el.closest(".field").querySelector(".msg").hidden = true; }));
+    root.querySelectorAll("[data-chip]").forEach(b => b.onclick = () => {
+      const id = b.dataset.chip, val = b.dataset.v; const arr = Array.isArray(answers[id])?answers[id]:[];
+      answers[id] = arr.includes(val) ? arr.filter(x=>x!==val) : [...arr,val];
+      b.setAttribute("aria-pressed", answers[id].includes(val)); store.set("bearing.answers",answers);
+    });
+    $("#back")?.addEventListener("click", () => { step--; render(); window.scrollTo(0,0); });
+    $("#fillEx").onclick = () => { answers = {...EXAMPLE}; store.set("bearing.answers",answers); render(); };
+    $("#qform").onsubmit = e => {
+      e.preventDefault();
+      let first = null;
+      s.fields.filter(f=>f.req).forEach(f => {
+        const ok = (answers[f.id]||"").toString().trim();
+        const fe = root.querySelector(`[data-f="${f.id}"]`);
+        if (!ok){ fe.classList.add("err"); const m = fe.querySelector(".msg"); if (m){ m.hidden=false; m.textContent = f.type==="select"?"Choose an option to continue.":"Add an answer to continue."; } first = first || fe; }
+      });
+      if (first){ first.querySelector("input,textarea,select")?.focus(); return; }
+      step++; render(); window.scrollTo(0,0);
+    };
+    return;
+  }
+  if (step === STEPS.length){
+    const rows = STEPS.flatMap(s=>s.fields).filter(f => { const v = answers[f.id]; return Array.isArray(v)?v.length:(v||"").trim(); })
+      .map(f => `<div class="rrow"><b>${esc(f.label)}</b><span>${esc(Array.isArray(answers[f.id])?answers[f.id].join(", "):answers[f.id])}</span></div>`).join("");
+    root.innerHTML = progress() + `<div class="qhead"><h2>Review and pay</h2><p>Check your answers, pick the plan depth, then pay to generate your plan.</p></div>
+      ${cancelledNote ? `<div class="err-box">Payment was cancelled, so you haven't been charged. Your answers are still here when you're ready.</div>` : ""}
+      <div class="field" style="margin-top:26px"><span class="lbl">Plan depth</span>
+        <div class="tierpick">${Object.entries(TIERS).map(([k,t])=>`<button type="button" data-tier="${k}" aria-pressed="${k===tier}"><b>${t.name}</b><span>$${t.price} · ${t.sections.length} sections</span></button>`).join("")}</div></div>
+      <div class="review">${rows}</div>
+      <p class="notice">Secure checkout by Stripe: card, Apple Pay or Google Pay. Your plan starts writing as soon as payment goes through and is usually ready in one to two minutes. Prices are in AUD and include GST.</p>
+      <div id="payErr"></div>
+      <div class="qnav"><button type="button" class="btn btn-ghost" id="back">← Edit answers</button>
+      <button type="button" class="btn btn-primary" id="pay">Pay $${TIERS[tier].price} and get my plan →</button></div>`;
+    root.querySelectorAll("[data-tier]").forEach(b => b.onclick = () => { tier = b.dataset.tier; store.set("bearing.tier",tier); render(); });
+    $("#back").onclick = () => { step = 0; render(); window.scrollTo(0,0); };
+    $("#pay").onclick = pay;
+    return;
+  }
+}
+
+async function pay(){
+  const btn = $("#pay");
+  btn.disabled = true; btn.textContent = "Opening secure checkout…";
+  try{
+    const res = await fetch("/api/checkout", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ tier, answers }) });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.url) throw new Error(data.error || "Checkout couldn't be opened. Try again in a moment.");
+    location.href = data.url;
+  }catch(e){
+    $("#payErr").innerHTML = `<div class="err-box">${esc(e.message)}</div>`;
+    btn.disabled = false; btn.textContent = `Pay $${TIERS[tier].price} and get my plan →`;
+  }
+}
+
+/* ---------- Plan view (after payment) ---------- */
+let pollTimer = null, sessionId = null, lastPlan = "", planInfo = null;
+
+function planShell(info){
+  const date = new Date().toLocaleDateString("en-AU",{day:"numeric",month:"long",year:"numeric"});
+  const b = info.business || {};
+  $("#builderInner").innerHTML = `<article class="plan">
+    <div class="plan-head"><p class="eyebrow">${esc(info.tierName || "")} marketing plan</p><h2>${esc(b.bizName)}</h2>
+      <div class="row"><span>${esc(b.location)}</span><span>${esc(b.budget)}/month</span><span>${esc(b.horizon)} horizon</span><span>${date}</span></div></div>
+    <div class="status" id="status"><span class="pulse"></span><span id="statusText">Payment received. Reading your answers and drafting your strategy.</span></div>
+    <div class="plan-body"><div class="md" id="out"></div><div id="errSlot"></div></div>
+  </article>
+  <div class="plan-actions" id="actions" hidden>
+    <button class="btn btn-primary" id="copy">Copy plan</button>
+    <button class="btn btn-ghost" id="dl">Download (.md)</button>
+    <button class="btn btn-ghost" id="regen"></button>
+  </div>
+  <p class="notice" style="margin-top:18px">Bookmark this page. Its link always shows your latest plan.</p>`;
+}
+
+async function openPlan(id){
+  sessionId = id;
+  $("#landing").hidden = true; $("#builder").hidden = false; window.scrollTo(0,0);
+  $("#builderInner").innerHTML = `<p class="notice">Loading your plan…</p>`;
+  const info = await fetchPlan();
+  if (!info) return;
+  planShell(info);
+  if (info.status === "none") await startGeneration(false);
+  else update(info);
+  if (!["done","error"].includes(info.status)) poll();
+}
+
+async function fetchPlan(){
+  try{
+    const res = await fetch(`/api/plan?session_id=${encodeURIComponent(sessionId)}`, { cache:"no-store" });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "We couldn't load this plan.");
+    planInfo = data; return data;
+  }catch(e){
+    $("#builderInner").innerHTML = `<div class="err-box">${esc(e.message)} If you've paid, reply to your Stripe receipt email and we'll sort it out.</div>`;
+    return null;
+  }
+}
+
+async function startGeneration(regenerate){
+  $("#errSlot").innerHTML = "";
+  $("#actions").hidden = true;
+  $("#status").hidden = false;
+  $("#status").innerHTML = `<span class="pulse"></span><span id="statusText">${regenerate ? "Writing a new version of your plan." : "Payment received. Reading your answers and drafting your strategy."}</span>`;
+  const res = await fetch("/api/start", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ sessionId, regenerate }) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok){
+    $("#status").hidden = true;
+    $("#errSlot").innerHTML = `<div class="err-box">${esc(data.error || "Couldn't start your plan. Try again in a moment.")}</div>`;
+    if (lastPlan) showActions();
+    return;
+  }
+  if (regenerate) { $("#out").innerHTML = ""; lastPlan = ""; }
+  poll();
+}
+
+function poll(){
+  clearTimeout(pollTimer);
+  pollTimer = setTimeout(async () => {
+    const info = await fetchPlan();
+    if (!info) return;
+    update(info);
+    if (!["done","error"].includes(info.status)) poll();
+  }, 2000);
+}
+
+function update(info){
+  if (info.text) { lastPlan = info.text; $("#out").innerHTML = renderMd(info.text); }
+  const st = $("#statusText");
+  if (info.status === "queued" || info.status === "writing"){
+    $("#status").hidden = false;
+    if (st) st.textContent = info.text ? "Writing your plan…" : "Drafting your strategy. This usually takes one to two minutes.";
+    return;
+  }
+  $("#status").hidden = true;
+  if (info.status === "error") $("#errSlot").innerHTML = `<div class="err-box">${esc(info.error || "Something interrupted your plan.")}</div>`;
+  if (info.status === "done" && info.truncated) $("#errSlot").innerHTML = `<div class="err-box">Your plan was cut short. Generate a new version to get the full plan.</div>`;
+  showActions();
+}
+
+function showActions(){
+  const info = planInfo || {};
+  $("#actions").hidden = false;
+  $("#copy").hidden = $("#dl").hidden = !lastPlan;
+  $("#copy").onclick = async () => {
+    try{ await navigator.clipboard.writeText(lastPlan); $("#copy").textContent = "Copied"; }
+    catch(e){ const r = document.createRange(); r.selectNodeContents($("#out")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $("#copy").textContent = "Selected, press Ctrl+C"; }
+    setTimeout(()=>{ $("#copy").textContent = "Copy plan"; }, 2200);
+  };
+  $("#dl").onclick = () => {
+    const name = (info.business?.bizName || "plan").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+    const blob = new Blob([`# ${info.business?.bizName} — ${info.tierName} marketing plan\n\n${lastPlan}`], { type:"text/markdown" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `${name}-marketing-plan.md`;
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  const left = info.generationsLeft ?? 0;
+  const regen = $("#regen");
+  regen.hidden = left <= 0;
+  regen.textContent = `Generate a new version (${left} left)`;
+  regen.onclick = () => startGeneration(true);
+}
+
+function renderMd(md){
+  const html = DOMPurify.sanitize(marked.parse(md || ""));
+  return html.replace(/<table>/g,'<div class="tbl"><table>').replace(/<\/table>/g,"</table></div>");
+}
+
+/* ---------- Start-up: returning from Stripe? ---------- */
+const params = new URLSearchParams(location.search);
+var cancelledNote = false;
+if (params.get("session_id")) {
+  openPlan(params.get("session_id"));
+} else if (params.get("cancelled")) {
+  cancelledNote = true;
+  history.replaceState(null, "", location.pathname);
+  openBuilder(STEPS.length);
+}
+})();
+</script>
+</body>
+</html>

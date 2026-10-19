@@ -1,0 +1,13 @@
+{
+  "name": "bearing-marketing-plans",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Bearing: tailored AI marketing plans, paid with Stripe, written by Claude",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@netlify/blobs": "^8.1.0",
+    "stripe": "^17.7.0"
+  }
+}
